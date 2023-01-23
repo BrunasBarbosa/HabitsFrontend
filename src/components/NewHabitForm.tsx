@@ -10,30 +10,30 @@ export function NewHabitForm() {
   const [weekDays, setWeekDays] = useState<number[]>([]);
 
   async function createNewHabit(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
-    if(!title || weekDays.length === 0) {
-      return alert("Você não preencheu o(s) campo(s) título ou dia.")
+    if (!title || weekDays.length === 0) {
+      return alert("Você não preencheu o(s) campo(s) título ou dia.");
     }
 
     await api.post('habits', {
       title,
       weekDays,
-    })
+    });
 
-    alert('Hábito criado com sucesso!')
+    alert('Hábito criado com sucesso!');
     setTitle('');
     setWeekDays([]);
   }
 
   function handleToggleWeekDay(weekDay: number) {
-    if(weekDays.includes(weekDay)) {
+    if (weekDays.includes(weekDay)) {
       const weekWithoutTheDay = weekDays.filter(day => day !== weekDay);
 
       setWeekDays(weekWithoutTheDay);
     } else {
-      const weekWithTheDay = [...weekDays, weekDay]
-      setWeekDays(weekWithTheDay)
+      const weekWithTheDay = [...weekDays, weekDay];
+      setWeekDays(weekWithTheDay);
     }
   }
 
@@ -61,8 +61,8 @@ export function NewHabitForm() {
         {
           availableWeekDays.map((weekDay, index) => {
             return (
-              <Checkbox.Root 
-                key={weekDay} 
+              <Checkbox.Root
+                key={weekDay}
                 className="flex items-center gap-3 group"
                 checked={weekDays.includes(index)}
                 onCheckedChange={() => handleToggleWeekDay(index)}
